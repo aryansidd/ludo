@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ludo Arena — Admin Test Build</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">◆</span><div><strong>Ludo Arena</strong><small>PLAY • TEST • REPEAT</small></div></div>
+    <div class="top-actions"><span class="mode-pill" id="modePill">LOCAL GAME</span><button class="btn btn-outline" id="adminOpen">Admin Mode</button></div>
+  </header>
+
+  <main class="layout">
+    <section class="game-column">
+      <div class="page-heading"><div><p class="eyebrow">GAME ROOM / LOCAL</p><h1>Classic Ludo</h1><p class="muted">A local prototype with a private testing control panel.</p></div><button class="btn btn-outline" id="newGame">↻ New game</button></div>
+      <div class="game-card">
+        <div class="board-wrap">
+          <div class="board" id="board" aria-label="Ludo board">
+            <div class="home red"><div class="home-inner"><i></i><i></i><i></i><i></i></div></div>
+            <div class="home green"><div class="home-inner"><i></i><i></i><i></i><i></i></div></div>
+            <div class="home blue"><div class="home-inner"><i></i><i></i><i></i><i></i></div></div>
+            <div class="home yellow"><div class="home-inner"><i></i><i></i><i></i><i></i></div></div>
+            <div class="center-star">✦</div>
+            <div class="track" id="track"></div>
+            <div class="token-layer" id="tokenLayer"></div>
+          </div>
+        </div>
+        <div class="game-controls">
+          <div class="turn-info"><span class="turn-dot" id="turnDot"></span><div><small>PLAYER TURN</small><strong id="turnLabel">Red's turn</strong></div></div>
+          <button class="dice" id="rollDice" aria-label="Roll dice"><span id="diceFace">⚄</span><small>ROLL DICE</small></button>
+          <div class="roll-note" id="gameMessage">Roll a 6 to bring a token out, then move around the board.</div>
+        </div>
+      </div>
+      <div class="notice"><span>ⓘ</span><div><strong>Prototype build</strong><p>This first version runs in your browser. Admin testing controls are for private local testing only; they are not secure multiplayer controls.</p></div></div>
+    </section>
+
+    <aside class="side-column">
+      <div class="panel">
+        <div class="panel-title"><div><p class="eyebrow">MATCH STATUS</p><h2>Players</h2></div><span class="live-dot">● READY</span></div>
+        <div class="player-list" id="playerList"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><div><p class="eyebrow">HOW TO PLAY</p><h2>Quick rules</h2></div></div>
+        <ul class="rules">
+          <li><span>01</span> Roll a <b>6</b> to bring a token onto the board.</li>
+          <li><span>02</span> Click one of your active tokens to move it.</li>
+          <li><span>03</span> Roll a 6 to get another roll.</li>
+          <li><span>04</span> Use Admin Mode only to test a selected winner.</li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+
+  <div class="modal-backdrop hidden" id="adminModal">
+    <section class="admin-modal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+      <button class="modal-close" id="adminClose" aria-label="Close">×</button>
+      <div class="modal-heading"><div class="admin-icon">⚙</div><div><p class="eyebrow">RESTRICTED TO LOCAL TESTING</p><h2 id="adminTitle">Admin Test Controls</h2><p class="muted">No match history is saved in this build.</p></div></div>
+      <div class="test-warning"><strong>Testing mode</strong><p>These controls affect only this browser session. Do not use this client-only control in a public or real-money game.</p></div>
+      <label class="switch-row"><span><strong>Enable test mode</strong><small>Show the test winner controls</small></span><input type="checkbox" id="testMode" /><span class="switch"></span></label>
+      <div class="admin-controls disabled" id="adminControls">
+        <label class="field-label">Choose test winner</label>
+        <div class="color-options">
+          <button class="color-choice selected" data-color="red"><span class="swatch red-swatch"></span>Red</button>
+          <button class="color-choice" data-color="blue"><span class="swatch blue-swatch"></span>Blue</button>
+          <button class="color-choice" data-color="green"><span class="swatch green-swatch"></span>Green</button>
+          <button class="color-choice" data-color="yellow"><span class="swatch yellow-swatch"></span>Yellow</button>
+        </div>
+        <button class="btn btn-primary full" id="applyWinner" disabled>Finish test match with selected winner</button>
+        <p class="field-help">This ends the current local test round and displays the selected colour as winner. It does not alter the normal dice rules.</p>
+      </div>
+      <div class="modal-footer"><span>ADMIN TEST BUILD · v0.1</span><button class="btn btn-outline" id="adminDone">Done</button></div>
+    </section>
+  </div>
+
+  <div class="winner-toast hidden" id="winnerToast"><div class="trophy">🏆</div><div><small>MATCH COMPLETE</small><h2 id="winnerText">Red wins!</h2><p>Test result shown locally. Start a new game to play again.</p></div><button class="btn btn-outline" id="dismissWinner">×</button></div>
+  <script src="app.js"></script>
+</body>
+</html>
